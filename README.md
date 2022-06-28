@@ -21,6 +21,6 @@ The endpoints available are:
 
 **Data-Sources are:**
 
-https://github.com/CSSEGISandData/COVID-19
+World stats : https://github.com/CSSEGISandData/COVID-19
 
-https://github.com/kalyaniuniversity/COVID-19-Datasets
+India Stats : https://github.com/kalyaniuniversity/COVID-19-Datasets
