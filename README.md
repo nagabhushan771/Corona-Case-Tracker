@@ -1,5 +1,5 @@
 # Corona-Case-Tracker
-This is the REST API build using the SpringBoot
+**This is the REST API build using the SpringBoot**
 
 This will give us the live stats of the COVID-19 disease which includes Confirmed cases, Recovery Cases and Deaths of COVID-19 of all countries and the States/UT's of India
 
@@ -19,7 +19,7 @@ The endpoints available are:
 12. Count of Deaths due to COVID-19  of specific State/UT of India
 
 
-Data-Sources are:
+**Data-Sources are:**
 
 https://github.com/CSSEGISandData/COVID-19
 
