@@ -1,0 +1,32 @@
+{"properties": [
+  {
+    "name": "data.url.death.india",
+    "type": "java.lang.String",
+    "description": "A description for 'data.url.death.india'"
+  },
+  {
+    "name": "data.url.death.world",
+    "type": "java.lang.String",
+    "description": "A description for 'data.url.death.world'"
+  },
+  {
+    "name": "data.url.recovered.india",
+    "type": "java.lang.String",
+    "description": "A description for 'data.url.recovered.india'"
+  },
+  {
+    "name": "data.url.recovered.world",
+    "type": "java.lang.String",
+    "description": "A description for 'data.url.recovered.world'"
+  },
+  {
+    "name": "data.url.confirmed.world",
+    "type": "java.lang.String",
+    "description": "A description for 'data.url.confirmed.world'"
+  },
+  {
+    "name": "data.url.confirmed.india",
+    "type": "java.lang.String",
+    "description": "A description for 'data.url.confirmed.india'"
+  }
+]}

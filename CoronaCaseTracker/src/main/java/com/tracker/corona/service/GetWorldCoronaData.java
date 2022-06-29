@@ -2,10 +2,6 @@ package com.tracker.corona.service;
 
 import java.io.IOException;
 import java.io.StringReader;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,11 +9,8 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.ContextIdApplicationContextInitializer;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -51,40 +44,19 @@ public class GetWorldCoronaData {
 	@PostConstruct
 	@Scheduled(cron = "0 5 * * * 0-6")
 	private void getConfirmedCoronaData() throws IOException, InterruptedException {
-		Map<String, CoronaStats> newConfirmedCoronaStatsMap = new HashMap<>();
 
 		StringReader reader = utilities.getStringReaderByURL(CONFIRMED_CORONA_WORLD_DATA_URL);
-		Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(reader);
-		for (CSVRecord record : records) {
 
-		    CoronaStats confirmedCoronaStat = new CoronaStats();
-		    confirmedCoronaStat.setState(record.get("Province/State"));
-		    confirmedCoronaStat.setCountry(record.get("Country/Region"));
-		    confirmedCoronaStat.setCases(Integer.parseInt(record.get(record.size()-1)));
-
-		    String key = confirmedCoronaStat.getState() == "" ? confirmedCoronaStat.getCountry() : confirmedCoronaStat.getState();
-		    newConfirmedCoronaStatsMap.put(key.toUpperCase(), confirmedCoronaStat);
-		}
-		setWorldConfirmedCoronaStatsMap(newConfirmedCoronaStatsMap);
+		setWorldConfirmedCoronaStatsMap(utilities.getWorldCoronaStatsMap(reader));
 	}
 	
 	@PostConstruct
 	@Scheduled(cron = "0 5 * * * 0-6")
 	private void getDeathCoronaData() throws IOException, InterruptedException {
-		Map<String, CoronaStats> newDeathCoronaStatsMap = new HashMap<>();
+
 		StringReader reader = utilities.getStringReaderByURL(DEATH_CORONA_WORLD_DATA_URL);
-		Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(reader);
-		for (CSVRecord record : records) {
 
-		    CoronaStats confirmedCoronaStat = new CoronaStats();
-		    confirmedCoronaStat.setState(record.get("Province/State"));
-		    confirmedCoronaStat.setCountry(record.get("Country/Region"));
-		    confirmedCoronaStat.setCases(Integer.parseInt(record.get(record.size()-1)));
-
-		    String key = confirmedCoronaStat.getState() == "" ? confirmedCoronaStat.getCountry() : confirmedCoronaStat.getState();
-		    newDeathCoronaStatsMap.put(key.toUpperCase(), confirmedCoronaStat);
-		}
-		setWorldDeathCoronaStatsMap(newDeathCoronaStatsMap);
+		setWorldDeathCoronaStatsMap(utilities.getWorldCoronaStatsMap(reader));
 		
 	}
 
@@ -108,18 +80,14 @@ public class GetWorldCoronaData {
 	 * Return the confirmed corona stats for the specific country given as input
 	 */
 	public CoronaStats getConfirmedCoronaCaseStatsOfCountry(String country) {
-		if(worldConfirmedCoronaStatsMap.containsKey(country))
-			return worldConfirmedCoronaStatsMap.get(country);
-		return null;
+		return worldConfirmedCoronaStatsMap.getOrDefault(country, null);
 	}
 
 	/*
 	 * Return the Recovered corona stats for the specific country given as input
 	 */
 	public CoronaStats getDeathCoronaCaseStatsOfCountry(String country) {
-		if(worldDeathCoronaStatsMap.containsKey(country))
-			return worldDeathCoronaStatsMap.get(country);
-		return null;
+		return worldDeathCoronaStatsMap.getOrDefault(country, null);
 	}
 	
 	

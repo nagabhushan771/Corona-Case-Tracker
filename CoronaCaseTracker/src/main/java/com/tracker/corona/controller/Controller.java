@@ -76,7 +76,7 @@ public class Controller {
 		return getIndiaCoronaData.getIndiaAllCoronaStatsList();
 	}
 	
-	@GetMapping("india/{state}")
+	@GetMapping("/india/{state}")
 	public CoronaAllStats getIndiaCoronaAllStatsByState(@PathVariable String state) {
 		return getIndiaCoronaData.getAllCoronaStatsByState(state.toUpperCase());
 	}
